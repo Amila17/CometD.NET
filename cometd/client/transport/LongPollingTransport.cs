@@ -158,7 +158,7 @@ namespace Cometd.Client.Transport
                 request.CookieContainer = new CookieContainer();
             request.CookieContainer.Add(getCookieCollection());
 
-            if(request.Headers === null)
+            if(request.Headers == null)
             {
                 request.Headers = new WebHeaderCollection();
             }
