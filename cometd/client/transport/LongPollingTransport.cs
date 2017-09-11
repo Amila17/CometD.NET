@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Cometd.Bayeux;
 using Cometd.Common;
-
+using System.Collections.Specialized;
 
 namespace Cometd.Client.Transport
 {
@@ -158,6 +158,13 @@ namespace Cometd.Client.Transport
                 request.CookieContainer = new CookieContainer();
             request.CookieContainer.Add(getCookieCollection());
 
+            if(request.Headers === null)
+            {
+                request.Headers = new WebHeaderCollection();
+            }
+
+            request.Headers.Add(getHeaderCollection());
+
             JavaScriptSerializer jsonParser = new JavaScriptSerializer();
             String content = jsonParser.Serialize(ObjectConverter.ToListOfDictionary(messages));
 
@@ -276,6 +283,11 @@ namespace Cometd.Client.Transport
                 if (exchange.request != null) exchange.request.Abort();
                 exchange.Dispose();
             }
+        }
+
+        public void AddHeaders(NameValueCollection headers)
+        {
+            addHeaders(headers);
         }
 
 
